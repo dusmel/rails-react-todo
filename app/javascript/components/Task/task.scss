@@ -1,0 +1,96 @@
+$shadow: 0 0 16px 0 rgba(17, 22, 26, 0.16), 0 0 0 rgba(17, 22, 26, 0.08), 0 1px 1px 0 rgba(17, 22, 26, 0.08);
+@font-face {
+  font-family: "manrope";
+  src: url("../../../assets/fonts/manrope/manrope-medium.woff") format("woff"),
+  url("../../../assets/fonts/manrope/manrope-regular.otf") format("opentype"),
+  }
+@font-face {
+  font-family: "product-sans";
+  src: url("../../../assets/fonts/productSans/ProductSans-Regular.woff") format("woff"),
+  url("../../../assets/fonts/productSans/ProductSans-Regular.eot") format("opentype"),
+  }
+body{
+  background: #e6e1e1;
+  h1, h2, h3, h4, p, span{
+    font-family: 'product-sans';
+    color: #333;
+  }
+}
+#task{
+  .col-md-7{
+    box-shadow: $shadow;
+    margin-top: 1rem;
+    background: #fbfbfb;
+    border-radius: 6px;
+
+    .wrapper{
+      padding: 4rem 1rem;
+      .profile-img{
+        width: 64px;
+        height: 64px;
+        border-radius: 32px;
+        box-shadow: $shadow;
+        margin-bottom: 29px;
+      }
+      .create{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .right{
+          margin: -12px 2rem 0 0;
+        }
+      }
+      h4{
+        margin: 0;
+        font-weight: 800;
+      }
+      .date{
+        font-size: 13px;
+      }
+
+      .task-item{
+        box-shadow: $shadow;
+        padding: 11px;
+        background: white;
+        margin: 2rem 0 0;
+        border-radius: 6px;
+        .title, .details{
+          display: flex;
+          h6{
+            font-weight: 700;
+            text-transform: capitalize;
+          }
+          h6, p{
+            margin-right: auto;
+          }
+          i{
+            font-weight: 800;
+          }
+        }
+        .details{
+          p{
+            font-size: 12px;
+            color: #636161cd;
+          }
+          i{
+            font-weight: 800;
+            font-size: 10px;
+          }
+          
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .ui.modals{
+    display: flex;
+  }
+  .ui.tiny.modal {
+    height: 26rem;
+    margin: 2rem auto !important;
+  }
+  .modal{
+    left: auto !important;
+  }
+}

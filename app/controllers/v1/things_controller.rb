@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class V1::ThingsController < ApplicationController
+  protect_from_forgery
+
   def index
     render json: {
       things: [
@@ -14,5 +16,8 @@ class V1::ThingsController < ApplicationController
         }
       ]
     }
+  end
+  def show
+    render json: params[:thing]
   end
 end
