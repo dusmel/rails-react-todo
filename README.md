@@ -18,8 +18,10 @@
           • [devise-jwt](https://github.com/waiting-for-dev/devise-jwt)
     
       - [x] send email on registration and confirmation
-      - [ ] add customized input to registration
+      - [x] add customized input to registration
       - [ ] Add front end pages for login, signup and reset     password
+
+    [ ] social login with firebase
   
 
 
