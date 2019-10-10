@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get '/login', to: 'single_page#index'
+  devise_scope :user do
+    get '/login', to: 'sessions#login'
+    get '/signup', to: 'registrations#custom_signup'
+  end
   devise_for :users,
              path: '',
              path_names: {
@@ -10,7 +13,6 @@ Rails.application.routes.draw do
                registration: 'signup'
              },
              controllers: {
-               confirmations: 'confirmations',
                sessions: 'sessions',
                registrations: 'registrations'
              }

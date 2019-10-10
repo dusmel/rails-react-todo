@@ -7,8 +7,18 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
+    user = User.where(email: params[:user][:email])
+    sign_in(resource_name, resource) if user.exists?
+    # resource.confirmed_at = Time.now
+    # byebug
+    # byebug
+
     resource.save
     render_resource(resource)
+  end
+
+  def custom_signup
+    render 'auth/session'
   end
 
   private

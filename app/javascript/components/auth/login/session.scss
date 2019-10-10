@@ -1,0 +1,66 @@
+.Session{
+  background-image: url('../../../assets/img/bg-cover6.jpg');
+  background-size: cover;
+  background-position: 37rem -6rem;
+  height: 100vh;
+  .session-container{
+    display: flex;
+    margin-top: 3rem;
+    height: 37rem;
+    box-shadow: 10px 10px 25px 0 rgba(0,0,0,.1);
+    background: white;
+    .login-form, .signup-form {
+      padding: 2rem;
+      .title{
+        font-weight: 700;
+        font-size: 30px;
+        color: #c8ccd0;
+        span{
+          font-weight: 700;
+          font-size: 30px;
+        }
+      }
+      .login-message{
+        color: #96989a;
+      }
+      .form{
+        margin-top: 3rem;
+      }
+    }
+    .login-illustration{
+      width: 50%;
+      img{
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .session-container{
+    height: 100vh !important;
+    margin-top: 0 !important;
+  }
+} 
+
+//firebase 
+
+.firebaseui-card-content, .firebaseui-card-footer{
+  padding: 0 6px !important;
+  margin-top: 1.5rem;
+  .firebaseui-idp-list{
+    display: flex;
+    .firebaseui-list-item{
+      margin-right: 15px;
+    }
+  }
+}
+
+
+.firebaseui-idp-text.firebaseui-idp-text-long{
+  display: none !important;
+}
+.firebaseui-idp-text.firebaseui-idp-text-short{
+  display: table-cell !important;
+}

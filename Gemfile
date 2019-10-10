@@ -41,6 +41,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise-jwt'
 gem "figaro"
 gem "rack-cors" 
+gem 'irbtools'
+
+
 
 
 group :development, :test do
