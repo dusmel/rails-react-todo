@@ -5,8 +5,12 @@ import { Form, Button, Transition } from 'semantic-ui-react';
 import axios from 'axios';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signup, login } from '../../actions/session';
 import './session.scss';
-import loginBg from '../../../assets/img/login-bg.png';
+import loginBg from '../../assets/img/login-bg.png';
+import { prototype } from 'long';
 
 require('dotenv').config();
 
@@ -32,26 +36,28 @@ class Login extends Component {
   };
 
   componentDidMount = () => {
+    const {
+      session: { isLoggedIN },
+    } = this.props;
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
-      if (user) {
+      const { onSignup } = this.props;
+      if (user && !isLoggedIN) {
         const data = {
           user: {
             email: user.email,
             password: process.env.SOCIAL_LOGIN_SECRET,
+            name: user.displayName,
+            uid: user.uid,
           },
         };
-        axios
-          .post('signup', data)
-          .then(response => {
-            const payload = response.data;
-            console.log(payload);
-          })
-          .catch(error => console.log(error));
+        onSignup(data);
       }
       console.log('user', user);
     });
   };
+
+  toggleVisibility = () => this.setState(prevState => ({ visible: !prevState.visible }));
 
   login = () => {
     return (
@@ -136,4 +142,26 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  onSignup: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  session: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({ session }) => {
+  return {
+    session,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignup: data => dispatch(signup(data)),
+    onLogin: data => dispatch(login(data)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

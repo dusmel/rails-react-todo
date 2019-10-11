@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Task from './Task/Task';
-import Session from './auth/login/session';
+import Session from './auth/session';
 import Button from './button';
 import store from '../store';
 

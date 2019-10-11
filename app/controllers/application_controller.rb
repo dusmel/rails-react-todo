@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   def render_resource(resource)
     if resource.errors.empty?
-      render json: resource
+      render json: current_user
     else
       validation_error(resource)
     end

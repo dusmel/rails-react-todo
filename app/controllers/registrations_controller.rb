@@ -6,14 +6,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-
-    user = User.where(email: params[:user][:email])
-    sign_in(resource_name, resource) if user.exists?
-    # resource.confirmed_at = Time.now
-    # byebug
-    # byebug
-
-    resource.save
+    if resource.uid
+      user = User.where(email: params[:user][:email]).first
+      resource.confirmed_at = Time.now
+      # using ruby safe navigation user&.name == user && user.name
+      if user&.uid == resource.uid
+        sign_in(user)
+        return render_resource(resource)
+      end
+    end
+    resource.save && sign_in(resource)
     render_resource(resource)
   end
 
@@ -25,6 +27,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Notice the name of the method
   def sign_up_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :uid, :provider)
   end
 end
