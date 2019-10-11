@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Form, Button, Transition } from 'semantic-ui-react';
-import axios from 'axios';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,7 +9,6 @@ import { connect } from 'react-redux';
 import { signup, login } from '../../actions/session';
 import './session.scss';
 import loginBg from '../../assets/img/login-bg.png';
-import { prototype } from 'long';
 
 require('dotenv').config();
 
@@ -20,9 +18,7 @@ firebase.initializeApp({
 });
 
 class Login extends Component {
-  state = {
-    isSignedIn: false,
-  };
+  state = {};
 
   uiConfig = {
     signInFlow: 'popup',
@@ -36,13 +32,10 @@ class Login extends Component {
   };
 
   componentDidMount = () => {
-    const {
-      session: { isLoggedIN },
-    } = this.props;
+    const { history } = this.props;
     firebase.auth().onAuthStateChanged(user => {
-      this.setState({ isSignedIn: !!user });
       const { onSignup } = this.props;
-      if (user && !isLoggedIN) {
+      if (user) {
         const data = {
           user: {
             email: user.email,
@@ -52,8 +45,8 @@ class Login extends Component {
           },
         };
         onSignup(data);
+        history.push('/');
       }
-      console.log('user', user);
     });
   };
 
@@ -111,32 +104,19 @@ class Login extends Component {
   };
 
   render() {
-    const { isSignedIn } = this.state;
     return (
       <div className="Session">
-        {isSignedIn ? (
-          <span>
-            <div>Signed In!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            <h1>
-              Welcome
-              {firebase.auth().currentUser.displayName}
-            </h1>
-            <img alt="profile" src={firebase.auth().currentUser.photoURL} />
-          </span>
-        ) : (
-          <div className="row">
-            <div className="col-md-8 mx-auto">
-              <div className="session-container">
-                <Route exact path="/login" render={() => this.login()} />
-                <Route exact path="/signup" render={() => this.signup()} />
-                <div className="login-illustration">
-                  <img src={loginBg} className="img-fluid d-none d-lg-block" alt="login bg" />
-                </div>
+        <div className="row">
+          <div className="col-md-8 mx-auto">
+            <div className="session-container">
+              <Route exact path="/login" render={() => this.login()} />
+              <Route exact path="/signup" render={() => this.signup()} />
+              <div className="login-illustration">
+                <img src={loginBg} className="img-fluid d-none d-lg-block" alt="login bg" />
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     );
   }
@@ -145,13 +125,7 @@ class Login extends Component {
 Login.propTypes = {
   onSignup: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
-  session: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = ({ session }) => {
-  return {
-    session,
-  };
+  history: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
@@ -162,6 +136,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(Login);
