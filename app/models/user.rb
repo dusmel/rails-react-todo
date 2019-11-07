@@ -10,7 +10,8 @@ class User < ApplicationRecord
   def jwt_payload
     {
       'id': id,
-      'email': email
+      'email': email,
+      'avatar': avatar
     }
   end
 end

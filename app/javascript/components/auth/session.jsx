@@ -13,7 +13,7 @@ import loginBg from '../../assets/img/login-bg.png';
 require('dotenv').config();
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyAS7kf3CyQ36kR76d35MrPnFyJ1rVupED0',
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'rails-react-todo-8740a.firebaseapp.com',
 });
 
@@ -32,7 +32,6 @@ class Login extends Component {
   };
 
   componentDidMount = () => {
-    const { history } = this.props;
     firebase.auth().onAuthStateChanged(user => {
       const { onSignup } = this.props;
       if (user) {
@@ -42,10 +41,10 @@ class Login extends Component {
             password: process.env.SOCIAL_LOGIN_SECRET,
             name: user.displayName,
             uid: user.uid,
+            avatar: user.photoURL,
           },
         };
         onSignup(data);
-        history.push('/');
       }
     });
   };
@@ -125,7 +124,6 @@ class Login extends Component {
 Login.propTypes = {
   onSignup: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {

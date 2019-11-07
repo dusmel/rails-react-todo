@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api/self';
 import { LOGIN, SIGNUP } from '../actionTypes/session';
 
 export const signup = data => dispatch => {
@@ -8,6 +9,7 @@ export const signup = data => dispatch => {
     .then(response => {
       const { authorization } = response.headers;
       localStorage.setItem('todo-token', authorization);
+      api.defaults.headers.Authorization = authorization;
       const payload = response.data;
       dispatch({
         type: SIGNUP,
@@ -27,6 +29,7 @@ export const login = data => dispatch => {
     .then(response => {
       const { authorization } = response.headers;
       localStorage.setItem('todo-token', authorization);
+      api.defaults.headers.common.Authorization = authorization;
       const payload = response.data;
       dispatch({
         type: LOGIN,

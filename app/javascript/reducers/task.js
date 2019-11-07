@@ -1,6 +1,6 @@
 import { FETCH_ALL_TASKS, CREATE_NEW_TASK } from '../actionTypes/task';
 
-const greeting = (state = [], { type, payload }) => {
+const greeting = (state = {}, { type, payload }) => {
   switch (type) {
     case FETCH_ALL_TASKS:
       return {

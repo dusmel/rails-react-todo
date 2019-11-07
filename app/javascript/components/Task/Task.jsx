@@ -40,6 +40,7 @@ class Task extends Component {
     const { open, size, loading } = this.state;
     const {
       task: { data = [] },
+      session: { user },
     } = this.props;
     // console.log(tasks)
     return (
@@ -47,7 +48,7 @@ class Task extends Component {
         <div className="row">
           <div className="col-md-7 mx-auto">
             <div className="wrapper">
-              <img src={profile} alt="profile" className="profile-img" />
+              <img src={user.avatar || profile} alt="profile" className="profile-img" />
               <div className="create">
                 <div className="left">
                   <h4>Create a new task</h4>
@@ -65,9 +66,9 @@ class Task extends Component {
               </div>
               <div className="items">
                 <div className="row">
-                  {data.map(({ title, description }) => {
+                  {data.map(({ title, description }, index) => {
                     return (
-                      <div className="col-md-4 ">
+                      <div className="col-md-4 " key={index}>
                         <div className="task-item">
                           <div className="title">
                             <h6>{title}</h6>
@@ -121,13 +122,15 @@ class Task extends Component {
 }
 
 Task.propTypes = {
-  task: PropTypes.array.isRequired,
+  task: PropTypes.object.isRequired,
   onFetchTasks: PropTypes.func.isRequired,
   onCreateTask: PropTypes.func.isRequired,
+  session: PropTypes.object.isRequired,
 };
-const mapStateToProps = ({ task }) => {
+const mapStateToProps = ({ task, session }) => {
   return {
     task,
+    session,
   };
 };
 
