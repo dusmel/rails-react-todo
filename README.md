@@ -9,7 +9,7 @@
  - semantic UI for styling 
 
  ### what to add on update
-  - [ ] rubocop for ruby linting
+  - [x] rubocop for ruby linting
   - [x] proper .gitignore
   - [ ] Full Authentication with devise and devise-jwt
      - [x] **API registration and login with devise-jwt**

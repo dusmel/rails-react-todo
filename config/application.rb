@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,11 +15,11 @@ module ReactRailsApp
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins "*"
         resource(
-          '*',
+          "*",
           headers: :any,
-          expose: ['Authorization'],
+          expose: ["Authorization"],
           methods: %i[get patch put delete post options show]
         )
       end

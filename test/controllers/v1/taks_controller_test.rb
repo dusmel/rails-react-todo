@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class V1::TaksControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
@@ -20,5 +22,4 @@ class V1::TaksControllerTest < ActionDispatch::IntegrationTest
     get v1_taks_delete_url
     assert_response :success
   end
-
 end

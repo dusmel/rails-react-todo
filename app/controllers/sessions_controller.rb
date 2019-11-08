@@ -5,16 +5,15 @@ class SessionsController < Devise::SessionsController
   skip_before_action :verify_authenticity_token
 
   def login
-    render 'auth/session'
+    render "auth/session"
   end
 
   private
+    def respond_with(resource, _opts = {})
+      render json: resource
+    end
 
-  def respond_with(resource, _opts = {})
-    render json: resource
-  end
-
-  def respond_to_on_destroy
-    head :ok
-  end
+    def respond_to_on_destroy
+      head :ok
+    end
 end

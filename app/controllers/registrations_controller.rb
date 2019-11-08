@@ -8,7 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     if resource.uid
       user = User.where(email: params[:user][:email]).first
-      resource.confirmed_at = Time.now
+      resource.confirmed_at = Time.zone.now
       # using ruby safe navigation user&.name == user && user.name
       if user&.uid == resource.uid
         sign_in(user)
@@ -20,13 +20,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def custom_signup
-    render 'auth/session'
+    render "auth/session"
   end
 
   private
-
-  # Notice the name of the method
-  def sign_up_params
-    params.require(:user).permit(:name, :email, :password, :uid, :provider, :avatar)
-  end
+    # Notice the name of the method
+    def sign_up_params
+      params.require(:user).permit(:name, :email, :password, :uid, :provider, :avatar)
+    end
 end
