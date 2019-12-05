@@ -1,3 +1,4 @@
+import cogoToast from 'cogo-toast';
 import api from '../api/self';
 import { FETCH_ALL_TASKS, CREATE_NEW_TASK } from '../actionTypes/task';
 
@@ -18,6 +19,7 @@ export const createTask = data => dispatch => {
   api
     .post('v1/task', data)
     .then(response => {
+      cogoToast.success('This is a success message', { position: 'top-right' });
       const payload = response.data;
       dispatch({
         type: CREATE_NEW_TASK,
